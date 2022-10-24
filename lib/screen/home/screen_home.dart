@@ -19,8 +19,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
+      backgroundColor: Colors.teal[50],
       appBar: AppBar(
+        
         title: const Text(
           'MONEY MANAGER',
           style: TextStyle(color: Colors.black),
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         toolbarHeight: 75,
         elevation: 0,
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: Colors.teal[50],
       ),
       bottomNavigationBar: const BottomNavigation(),
       body: SafeArea(

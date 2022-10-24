@@ -17,6 +17,7 @@ class ScreenTransaction extends StatelessWidget {
       valueListenable: TransactionDB.instance.transactionListNotifier,
       builder: (BuildContext ctx, List<TransactionModel> newList, Widget? _) {
         return ListView.separated(
+            scrollDirection: Axis.vertical,
             padding: const EdgeInsets.all(10),
             physics: const BouncingScrollPhysics(),
             itemBuilder: (ctx, index) {
@@ -42,9 +43,9 @@ class ScreenTransaction extends StatelessWidget {
                   ],
                 ),
                 child: Card(
-                  color: value.type == CategoryType.income
-                      ? const Color.fromARGB(238, 135, 233, 128)
-                      : const Color.fromARGB(255, 248, 149, 114),
+                  // color: value.type == CategoryType.income
+                  //     ? const Color.fromARGB(238, 135, 233, 128)
+                  //     : const Color.fromARGB(255, 248, 149, 114),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: ListTile(
@@ -63,18 +64,41 @@ class ScreenTransaction extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 16)),
                     ),
-                    title: Text(
-                      'Rs ${value.amount}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black),
+                    title: Stack(
+                      children: [
+                        Text(
+                          'Rs ${value.amount}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black),
+                        ),
+                        // SizedBox(
+                        //   width: 20,
+                        // ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: value.type == CategoryType.income
+                                    ? Color.fromARGB(236, 33, 209, 21)
+                                    : Color.fromARGB(255, 234, 79, 22),
+                                borderRadius: BorderRadius.circular(20)),
+                            height: 8,
+                            width: 40,
+                          ),
+                        ),
+                      ],
                     ),
                     subtitle: Text(
                       value.purpose,
                       style: const TextStyle(fontSize: 15, color: Colors.black),
                     ),
-                    trailing: Text(value.category.name, style: const TextStyle(fontSize: 15, color: Colors.black),),
+                    trailing: Text(
+                      value.category.name,
+                      style: const TextStyle(fontSize: 15, color: Colors.black),
+                    ),
                   ),
                 ),
               );
