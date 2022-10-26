@@ -22,33 +22,13 @@ class ScreenTransaction extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (ctx, index) {
               final value = newList[index];
-              return Slidable(
-                key: Key(value.id!),
-                endActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  children: [
-                    SizedBox(
-                      height: 70,
-                      width: 185,
-                      child: SlidableAction(
-                        borderRadius: BorderRadius.circular(10),
-                        onPressed: (ctx) {
-                          TransactionDB.instance
-                              .deleteTransaction('${value.id}');
-                        },
-                        icon: Icons.delete,
-                        label: 'Delete',
-                      ),
-                    )
-                  ],
-                ),
-                child: Card(
-                  // color: value.type == CategoryType.income
-                  //     ? const Color.fromARGB(238, 135, 233, 128)
-                  //     : const Color.fromARGB(255, 248, 149, 114),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListTile(
+              return Card(
+                // color: value.type == CategoryType.income
+                //     ? const Color.fromARGB(238, 135, 233, 128)
+                //     : const Color.fromARGB(255, 248, 149, 114),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: value.type == CategoryType.income
                           ? const Color.fromARGB(0, 0, 255, 64)
@@ -73,20 +53,19 @@ class ScreenTransaction extends StatelessWidget {
                               fontSize: 16,
                               color: Colors.black),
                         ),
-                        // SizedBox(
-                        //   width: 20,
-                        // ),
+                       
                         Positioned(
-                          right: 0,
+                          right: 20,
                           bottom: 0,
                           child: Container(
+                            height: 10,
+                            width: 10,
                             decoration: BoxDecoration(
-                                color: value.type == CategoryType.income
-                                    ? Color.fromARGB(236, 33, 209, 21)
-                                    : Color.fromARGB(255, 234, 79, 22),
-                                borderRadius: BorderRadius.circular(20)),
-                            height: 8,
-                            width: 40,
+                              borderRadius: BorderRadius.circular(50),
+                              color: value.type == CategoryType.income
+                                  ? Color.fromARGB(236, 33, 209, 21)
+                                  : Color.fromARGB(255, 234, 79, 22),
+                            ),
                           ),
                         ),
                       ],
@@ -95,12 +74,13 @@ class ScreenTransaction extends StatelessWidget {
                       value.purpose,
                       style: const TextStyle(fontSize: 15, color: Colors.black),
                     ),
-                    trailing: Text(
-                      value.category.name,
-                      style: const TextStyle(fontSize: 15, color: Colors.black),
-                    ),
-                  ),
-                ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        TransactionDB.instance.deleteTransaction('${value.id}');
+                      },
+                      color: Colors.black,
+                    )),
               );
             },
             separatorBuilder: (ctx, index) {
